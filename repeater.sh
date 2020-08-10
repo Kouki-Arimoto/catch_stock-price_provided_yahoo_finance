@@ -10,8 +10,8 @@
 # OPTIONS
 ################################################# input method option #######################################################
 # [-p]:flag parameter input ---------------------------- [target command] [pre process input file] 	       [defaule FALSE]
-# [-r]:flag file redirect input ------------------------ [target command] < [pre process input file]            [default TRUE]
-# [-f]:flag file output -------------------------------- [target command] [file] > [post process output file]   [default FALSE]
+# [-r]:flag file redirect input ------------------------ [target command] < [pre process input file]           [default TRUE]
+# [-f]:flag file output -------------------------------- [target command] [file] > [post process output file]  [default FALSE]
 #############################################################################################################################
 
 ################################################# output file option ########################################################
@@ -155,7 +155,7 @@ elif [ "$OUTF" =  "TRUE" -a "$FILEADD" = "FALSE" ] ;then
 		# read file by 1 row	 
 		while read PREFILE 
 		do
-			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%.[^\.]*$%'"${TAIL}"'%g')
+			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%\.[^\.]*$%'"${TAIL}"'%g')
 			echo "`${COMND} < ${PREFILES}/${PREFILE}`" > ${POSTFILES}/${POSTFILE}
 		done < filelist.txt
 
@@ -164,7 +164,7 @@ elif [ "$OUTF" =  "TRUE" -a "$FILEADD" = "FALSE" ] ;then
 		# read file by 1 row	 	
 		while read PREFILE 
 		do
-			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%.[^\.]*$%'"${TAIL}"'%g')
+			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%\.[^\.]*$%'"${TAIL}"'%g')
 			echo "`${COMND} ${PREFILES}/${PREFILE}`"  >  ${POSTFILES}/${POSTFILE}
 		done < filelist.txt
 
@@ -182,7 +182,7 @@ elif [ "$OUTF" =  "TRUE" -a "$FILEADD" = "TRUE" ] ;then
 		# read file by 1 row	 
 		while read PREFILE 
 		do
-			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%.[^\.]*$%'"${TAIL}"'%g')
+			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%\.[^\.]*$%'"${TAIL}"'%g')
 			echo "`${COMND} < ${PREFILES}/${PREFILE}`" >> ${POSTFILES}/${POSTFILE}
 		done < filelist.txt
 
@@ -191,7 +191,7 @@ elif [ "$OUTF" =  "TRUE" -a "$FILEADD" = "TRUE" ] ;then
 		# read file by 1 row	 	
 		while read PREFILE 
 		do
-			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%.[^\.]*$%'"${TAIL}"'%g')
+			POSTFILE=$(echo "$PREFILE" | sed 's/^/'"${HEAD}"'/g' | sed 's%\.[^\.]*$%'"${TAIL}"'%g')
 			echo "`${COMND} ${PREFILES}/${PREFILE}`"  >>  ${POSTFILES}/${POSTFILE}
 		done < filelist.txt
 
