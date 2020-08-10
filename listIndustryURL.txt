@@ -1,0 +1,2 @@
+air_transpotation,https://stocks.finance.yahoo.co.jp/stocks/qi/?ids=5150
+transportation_equipment,https://stocks.finance.yahoo.co.jp/stocks/qi/?ids=3700
