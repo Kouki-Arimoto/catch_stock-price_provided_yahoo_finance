@@ -1,0 +1,43 @@
+#!/bin/sh
+
+#改行\nを代入する変数LFを定義する
+LF=$(printf '\n_');LF=${LF%_}
+DATE=`date "+%C%y/%m/%d"`
+DELIM=','
+
+
+#URLページを書き込むファイル
+DOC=$1
+
+#フィルター処理して、整形した株価データを出力するファイル
+SUBDOCOUT=`pwd`/stock_price_air_transpotation_sub.csv
+
+#download WEBページを表形式に整形する
+awk '/<!-- LIST -->/, /<!-- \/LIST -->/ { print } ' $DOC \
+        | awk '/<strong class=/ || /<div class="price/ { print } ' \
+	| sed 's/,//g' \
+        | sed 's%</a></td><td class="center yjSt">%'"${DELIM}"'%g' \
+        | sed 's%</td><td><strong class="yjMt">%'"${DELIM}"'%g' \
+        | sed 's%</div><div class="price yjM">%'"${DELIM}"'%g' \
+        | sed 's/<[^>]*>//g' \
+	| awk '{ LINE[NR]=$0; ENDR=NR }
+		END {
+			for(i=1; i<=ENDR/2; i=i+1 )
+				print LINE[2*i-1],LINE[2*i]
+		}' \
+	| sed 's% %'"${DELIM},${DATE}"'/%g' > ${SUBDOCOUT}
+
+
+#時刻区切り「:」があるかどうかチェックする（土日等は市場が停止し、時間：ではなく日付印字／されるため）あれば$?=0、なければ$?=1となる。
+cat ${SUBDOCOUT} | grep  ":"  > /dev/null 2>&1 
+if [ $? -eq 0 ]  ;then
+	cat ${SUBDOCOUT} 
+else
+	DATE=`date +"%Y/%m/%d %H:%M"`
+	cat ${SUBDOCOUT} \
+	| sed 's/'"${DELIM}"'/ /g' \
+	| awk -v d=`date +"%Y/%m/%d/%H:%M"` ' $4!~/:/ { $4=d }  { print }' \
+	| sed 's/ /'"${DELIM}"'/g'
+fi
+
+rm ${SUBDOCOUT}
