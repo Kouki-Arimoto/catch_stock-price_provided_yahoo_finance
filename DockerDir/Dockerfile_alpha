@@ -1,0 +1,6 @@
+FROM centos:centos7
+RUN yum -y update && yum clean all
+RUN yum -y install which 
+RUN yum -y install iproute 
+RUN yum -y install postgresql
+CMD echo "running..."
