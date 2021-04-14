@@ -45,7 +45,7 @@ services:
    tty: true
    privileged: true
    volumes:
-      - /Users/koukiarimoto/workdir/yahoo_finance_stock_price:/dbdata
+      - ./DataCSV:/dbdata
 
 #   ports:
 #      - 5432:5432
