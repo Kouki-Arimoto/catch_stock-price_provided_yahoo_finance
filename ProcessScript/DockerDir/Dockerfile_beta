@@ -1,0 +1,35 @@
+FROM centos:centos7
+
+RUN yum update -y && \
+    yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
+    yum install -y postgresql12-server
+RUN yum -y install which
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ENV PATH $PATH:/usr/pgsql-12/bin:/YahooFinance/ProcessScript
+ENV PGDATA /var/lib/pgsql/12/data
+
+USER postgres
+COPY --chown=postgres:postgres entrypoint.sh setup.sql /init/
+RUN chmod 755 /init/entrypoint.sh
+EXPOSE 5432
+ENTRYPOINT ["/init/entrypoint.sh"]
+CMD ["postgres"]
+
+######## pattern1 #######
+#FROM centos:7
+#RUN yum -y update && yum clean all
+#RUN yum -y install which 
+#RUN yum -y install iproute 
+#RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+#RUN yum -y install postgresql12-server postgresql12-contrib
+#RUN yum -y install passwd
+#USER postgres
+#RUN  /usr/pgsql-12/bin/initdb -E UTF8 --locale=C -D /var/lib/pgsql/12/data --auth=ident
+##RUN initdb -D /usr/local/pgsql/data
+##RUN pg_ctl -D /usr/local/pgsql/data initdb
+##RUN su - postgres -c '/usr/pgsql-12/bin/initdb -E UTF8 --locale=C -A trust'
+#USER root
+#RUN systemctl enable postgresql-12.service
+##RUN su - postgres /usr/pgsql-12/bin/postgresql-12-setup initdb
+#CMD echo "running..."

@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+#  cash:
+# #   image: centos:centos7
+#    build: 
+#      context: .
+#      dockerfile: Dockerfile_cash
+#    tty: true
+#    privileged: true
+
+#    ports:
+#       - 8080:80
+
+#    networks:
+#      app_net:
+#        ipv4_address: 172.30.0.3
+#    command: /sbin/init
+
+# CentOS7起動時にsystemctlが動かないとき以下を記載してdocker-compose upで起動する
+#・command: /sbin/init
+#・privileged: true
+
+#   command: /bin/sh -c "while :; do sleep 10; done"
+ 
+#  alpha:
+# #   image: centos:centos7
+#    build: 
+#      context: .
+#      dockerfile: Dockerfile_alpha
+#    tty: true
+#    privileged: true
+
+#    networks:
+#     app_net:
+#       ipv4_address: 172.30.0.2
+
+#    command: /bin/sh -c "while :; do sleep 10; done"
+
+ beta:
+#   image: centos:centos7
+   build:
+     context: .
+     dockerfile: Dockerfile_beta
+   tty: true
+   privileged: true
+   volumes:
+      - ../../:/YahooFinance
+      # - ../:/YahooFinance/processDir
+      # - ../../DataCSV:/dbData
+
+#   ports:
+#      - 5432:5432
+
+   networks:
+     app_net:
+       ipv4_address: 172.30.0.4
+
+#   command: /bin/sh -c "while :; do sleep 10; done"
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 172.30.0.0/24
+
+volumes:
+  mydata:
