@@ -45,7 +45,9 @@ services:
    tty: true
    privileged: true
    volumes:
-      - ./DataCSV:/dbdata
+      - ../../:/YahooFinance
+      # - ../:/YahooFinance/processDir
+      # - ../../DataCSV:/dbData
 
 #   ports:
 #      - 5432:5432

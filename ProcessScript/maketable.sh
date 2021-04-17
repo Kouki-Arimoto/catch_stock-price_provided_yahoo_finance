@@ -2,7 +2,7 @@
 
 FILENAME=
 URL=
-DIRECT="phpfiles"
+DIRECT="../phpfiles"
 EXTEND=".php"
 
 if which curl > /dev/null 2>&1  ;then #PHPファイルのダウンロードコマンド「curl」が存在するかどうかチェックし、結果(true or false)を/dev/nullへ捨てる
@@ -29,10 +29,12 @@ elif which wget > /dev/null 2>&1 ;then
 fi
 
 #「table_stock_price.csv」が存在しない場合、作成しヘッダーとなるカラム名たちを書き込む
-if [ ! -e ./DataCSV/table_stock_price.csv ] ;then
-	touch ./DataCSV/table_stock_price.csv
-	echo "code,market,Co.name,datetime,stock_price" >> ./DataCSV/table_stock_price.csv
+# if [ ! -e ./DataCSV/table_stock_price.csv ] ;then
+	# touch ./DataCSV/table_stock_price.csv
+if [ ! -e $(echo `pwd`)/../DataCSV/table_stock_price.csv ] ;then
+	touch $(echo `pwd`)/../DataCSV/table_stock_price.csv
+	echo "code,market,Co.name,datetime,stock_price" >> $(echo `pwd`)/../DataCSV/table_stock_price.csv
 fi
 
 #[phpfiles]フォルダへ格納したファイル群（上記の[FILENAME]たち）に対して、順番に「text2table.sh」処理を実行していく
-repeater.sh text2table.sh ${DIRECT} >> ./DataCSV/table_stock_price.csv
+repeater.sh text2table.sh ${DIRECT} >> $(echo `pwd`)/../DataCSV/table_stock_price.csv

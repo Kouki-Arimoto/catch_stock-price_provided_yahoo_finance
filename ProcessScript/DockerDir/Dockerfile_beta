@@ -3,8 +3,10 @@ FROM centos:centos7
 RUN yum update -y && \
     yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
     yum install -y postgresql12-server
+RUN yum -y install which
 
-ENV PATH $PATH:/usr/pgsql-12/bin
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ENV PATH $PATH:/usr/pgsql-12/bin:/YahooFinance/ProcessScript
 ENV PGDATA /var/lib/pgsql/12/data
 
 USER postgres
