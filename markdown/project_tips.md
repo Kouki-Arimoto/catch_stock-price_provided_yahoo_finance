@@ -29,6 +29,34 @@
 [参考：MACスクリーンショット](https://qiita.com/mamohacy/items/559af38aacb7a17a1600)
 *****
 
+## 4. PostgreSQL
+- CSVファイル挿入  
+  copy {Table name} from {File name/pass} with csv header  
+  (ヘッダーが付いたcsvファイルのデータをテーブルに挿入する)  
+  - コード例1
+   ```SQL
+   copy customer from 'Documents/customer.csv' with csv header
+   -- header　--> ヘッダー付き
+   ```
+
+  - コード例2
+  ```SQL
+  copy customer(id, name) from 'Documents/customer.csv' with csv  
+  -- {Table name}(columns) ：指定カラムだけ挿入する --> -->
+  ```
+- psqlでPostgreSQLへ接続する
+  ```Bash
+  psql -h "ホスト名" -p "ポート番号" -U "ロール名" -d "データベース名"
+  ```
+- 接続DB上(下記例では、DB:your_db)でCLIでクエリ実行
+  ```Bash
+  your_db=# \i insert_data.sql
+  ```
+- DBリスト、リレーションリストの確認
+  ```Bash
+  your_db=# \l  (DBリスト)
+  your_db=# \dt (リレーションリスト)
+  ```
 ## セクション
 1. [セクション1](#link)
 2. [セクション1](#link)
