@@ -36,11 +36,12 @@ cat ${SUBDOCOUT} | grep  ":"  > /dev/null 2>&1
 if [ $? -eq 0 ]  ;then
 	cat ${SUBDOCOUT} 
 else
-	DATE=`date +"%Y/%m/%d %H:%M"`
+	DATE=`date +"%Y/%m/%d %H:%M:%S"`
 	cat ${SUBDOCOUT} \
 	| sed 's/'"${DELIM}"'/ /g' \
-	| awk -v d=`date +"%Y/%m/%d/%H:%M"` ' $4!~/:/ { $4=d }  { print }' \
-	| sed 's/ /'"${DELIM}"'/g'
+	| awk -v d=`date +"%Y/%m/%d"`"¥t"`date +"%H:%M:%S"` ' $4!~/:/ { $4=d }  { print }' \
+	| sed 's/ /'"${DELIM}"'/g' \
+	| sed 's/¥t/ /g'
 fi
 
 rm ${SUBDOCOUT}

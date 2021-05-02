@@ -37,4 +37,6 @@ if [ ! -e $(echo `pwd`)/../DataCSV/table_stock_price.csv ] ;then
 fi
 
 #[phpfiles]フォルダへ格納したファイル群（上記の[FILENAME]たち）に対して、順番に「text2table.sh」処理を実行していく
-repeater.sh text2table.sh ${DIRECT} >> $(echo `pwd`)/../DataCSV/table_stock_price.csv
+repeater.sh text2table.sh ${DIRECT} > $(echo `pwd`)/../DataCSV/table_stock_price_by_process.csv
+cat $(echo `pwd`)/../DataCSV/table_stock_price_by_process.csv \
+>> $(echo `pwd`)/../DataCSV/table_stock_price.csv
