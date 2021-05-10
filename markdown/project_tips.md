@@ -1,4 +1,17 @@
 # 学習内容整理
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [学習内容整理](#学習内容整理)
+  - [1. Docker](#1-docker)
+  - [2. Git](#2-git)
+  - [3. MAC OSX](#3-mac-osx)
+  - [4. PostgreSQL](#4-postgresql)
+  - [VScode](#vscode)
+  - [テーブル](#テーブル)
+<!-- /code_chunk_output -->
+
 
 ## 1. Docker
 - 作成コンテナ(centOSイメージ)のデフォルト時刻はUTC
@@ -28,6 +41,8 @@
     注）controlがない場合、クリップボードに保存されずデスクトップに保存される  
 [参考：MACスクリーンショット](https://qiita.com/mamohacy/items/559af38aacb7a17a1600)
 *****
+- クリップボードコピーを貼り付ける  
+  command + alt + v
 
 ## 4. PostgreSQL
 - CSVファイル挿入  
@@ -48,6 +63,10 @@
   ```Bash
   psql -h "ホスト名" -p "ポート番号" -U "ロール名" -d "データベース名"
   ```
+- psqlでPostgreSQLへ一時的に接続して、SQLファイルを実行する
+  ```Bash
+  psql -f insert_data.sql -h localhost -p 5432 -U postgres -d your_db
+  ```
 - 接続DB上(下記例では、DB:your_db)でCLIでクエリ実行
   ```Bash
   your_db=# \i insert_data.sql
@@ -57,12 +76,16 @@
   your_db=# \l  (DBリスト)
   your_db=# \dt (リレーションリスト)
   ```
-## セクション
-1. [セクション1](#link)
-2. [セクション1](#link)
-3. [セクション1](#link)
-   
 
+ 1. [セクション1](#link)
+ 2. [セクション1](#link)
+ 3. [セクション1](#link)
+
+## VScode
+- ### Remote-Containers - コンテナ操作をするExtension
+![](2021-05-11-07-53-48.png)
+  - 左赤枠のアイコンを選択すると、コンテナ選択画面が開き、コンテナをクリックすると  右赤枠のコンテナ操作のリストが開く
+![](2021-05-11-08-05-25.png)
 ## テーブル
 | col1 | col2 | col3 |
 | ---- | ---- | ---- |

@@ -40,3 +40,6 @@ fi
 repeater.sh text2table.sh ${DIRECT} > $(echo `pwd`)/../DataCSV/table_stock_price_by_process.csv
 cat $(echo `pwd`)/../DataCSV/table_stock_price_by_process.csv \
 >> $(echo `pwd`)/../DataCSV/table_stock_price.csv
+
+#table_stock_price_by_process.csvのデータをデータベースに挿入する
+psql -f insert_data.sql -h localhost -p 5432 -U postgres -d your_db
