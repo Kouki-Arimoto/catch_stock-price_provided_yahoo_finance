@@ -28,21 +28,22 @@ awk '/<!-- LIST -->/, /<!-- \/LIST -->/ { print } ' $DOC \
 		for(i=1; i<=ENDR/2; i=i+1 )
 			print LINE[2*i-1],LINE[2*i]
 	}' \
-| sed 's% %'"${DELIM}${DATE}"'/%g' > ${SUBDOCOUT}
+| sed 's% %'"${DELIM}"'%g' > ${SUBDOCOUT}
+# | sed 's% %'"${DELIM}${DATE}"' %g' > ${SUBDOCOUT}
 
 # github test issue7
 
 #時刻区切り「:」があるかどうかチェックする（土日等は市場が停止し、時間：ではなく日付印字／されるため）あれば$?=0、なければ$?=1となる。
-cat ${SUBDOCOUT} | grep  ":"  > /dev/null 2>&1 
-if [ $? -eq 0 ]  ;then
-	cat ${SUBDOCOUT} 
-else
-	DATE=`date +"%Y/%m/%d %H:%M"`
+# cat ${SUBDOCOUT} | grep  ":"  > /dev/null 2>&1 
+# if [ $? -eq 0 ]  ;then
+# 	cat ${SUBDOCOUT} 
+# else
+	DATE=`date +"%Y/%m/%d %H:%M:%S"`
 	cat ${SUBDOCOUT} \
 	| sed 's/'"${DELIM}"'/ /g' \
-	| awk -v d=`date +"%Y/%m/%d/%H:%M"` ' $4!~/:/ { $4=d }  { print }' \
-	| sed 's/ /'"${DELIM}"'/g'
-	echo 'success'
-fi
+	| awk -v d=`date +"%Y/%m/%d"`"¥t"`date +"%H:%M:%S"` ' $4!~/:/ { $4=d }  { print }' \
+	| sed 's/ /'"${DELIM}"'/g' \
+	| sed 's/¥t/ /g'
+# fi
 
 rm ${SUBDOCOUT}
