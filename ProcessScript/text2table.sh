@@ -42,6 +42,7 @@ else
 	| sed 's/'"${DELIM}"'/ /g' \
 	| awk -v d=`date +"%Y/%m/%d/%H:%M"` ' $4!~/:/ { $4=d }  { print }' \
 	| sed 's/ /'"${DELIM}"'/g'
+	echo 'success'
 fi
 
 rm ${SUBDOCOUT}
