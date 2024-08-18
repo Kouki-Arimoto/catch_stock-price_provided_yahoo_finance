@@ -31,6 +31,7 @@ awk '/<!-- LIST -->/, /<!-- \/LIST -->/ { print } ' $DOC \
 | sed 's% %'"${DELIM}"'%g' > ${SUBDOCOUT}
 # | sed 's% %'"${DELIM}${DATE}"' %g' > ${SUBDOCOUT}
 
+# github test issue7
 
 #時刻区切り「:」があるかどうかチェックする（土日等は市場が停止し、時間：ではなく日付印字／されるため）あれば$?=0、なければ$?=1となる。
 # cat ${SUBDOCOUT} | grep  ":"  > /dev/null 2>&1 
